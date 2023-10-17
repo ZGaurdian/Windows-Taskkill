@@ -7,8 +7,10 @@
 
 using namespace std;
 
-int getPID(wstring procName)
+int getPID(const char* process)
 {
+	size_t size = strlen(process);
+	wstring procName(process, &process[size]);
 	transform(procName.begin(), procName.end(), procName.begin(), ::tolower);
 	int pid = -1;
 	HANDLE hProcessSnap;
@@ -53,7 +55,7 @@ BOOL TerminateProcess(int pid)
 	return(TRUE);
 }
 
-BOOL TerminateProcess(wstring procName)
+BOOL TerminateProcess(const char* procName)
 {
 	int pid = getPID(procName);
 	return TerminateProcess(pid);
@@ -62,12 +64,11 @@ BOOL TerminateProcess(wstring procName)
 int main(int argc, const char **argv)
 {
 	if (argc > 1) {
-		size_t size = strlen(argv[1]);
-		wstring ws(argv[1], &argv[1][size]);
-		BOOL t = TerminateProcess(ws);
+		
+		BOOL t = TerminateProcess(argv[1]);
 
 		if (t == true) {
-			std::cout << "Successfuly terminated process: " << argv[1];
+			std::cout << "Successfuly terminated process: " << argv[1] << " with pid: " << getPID(argv[1]) << endl;
 		}
 	}
 	else {
