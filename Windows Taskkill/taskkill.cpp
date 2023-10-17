@@ -70,6 +70,9 @@ int main(int argc, const char **argv)
 		if (t == true) {
 			std::cout << "Successfuly terminated process: " << argv[1] << " with pid: " << getPID(argv[1]) << endl;
 		}
+		else {
+			std::cout << "Failed to terminate process";
+		}
 	}
 	else {
 		std::cout << "Usage: taskkill <process name.exe>" << endl;
