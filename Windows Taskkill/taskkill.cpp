@@ -64,7 +64,11 @@ int main(int argc, const char **argv)
 	if (argc > 1) {
 		size_t size = strlen(argv[1]);
 		wstring ws(argv[1], &argv[1][size]);
-		TerminateProcess(ws);
+		BOOL t = TerminateProcess(ws);
+
+		if (t == true) {
+			std::cout << "Successfuly terminated process: " << argv[1];
+		}
 	}
 	else {
 		std::cout << "Usage: taskkill <process name.exe>" << endl;
